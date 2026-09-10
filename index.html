@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>B. Bhagya Binoy — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --navy-mid: #1a3260;
+    --blue: #2557a7;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f8f5ef;
+    --warm-white: #fdfcfa;
+    --text: #1c1c2e;
+    --text-mid: #4a4a6a;
+    --text-light: #8888aa;
+    --border: rgba(37,87,167,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(253,252,250,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(15,31,61,0.08); }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--navy);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 5rem 5rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.18) 0%, transparent 70%);
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute; bottom: -60px; left: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,87,167,0.4) 0%, transparent 70%);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-name em {
+    display: block;
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-tagline {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem;
+    opacity: 0; animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+  }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.8);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    background: var(--cream);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 5rem 5rem 5rem;
+    position: relative;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+  }
+
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    opacity: 0; animation: fadeUp 0.8s 1s forwards;
+  }
+
+  .stat {
+    border-left: 2px solid var(--gold);
+    padding-left: 1.2rem;
+  }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .hero-about {
+    margin-top: 3rem;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-mid);
+    opacity: 0; animation: fadeUp 0.8s 1.1s forwards;
+  }
+
+  .hero-contacts {
+    margin-top: 2.5rem;
+    display: flex; flex-direction: column; gap: 0.6rem;
+    opacity: 0; animation: fadeUp 0.8s 1.2s forwards;
+  }
+  .hero-contacts a {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .hero-contacts a:hover { color: var(--blue); }
+  .hero-contacts .icon {
+    width: 28px; height: 28px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 6rem; position: relative; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    color: var(--navy);
+    margin-bottom: 3.5rem;
+    line-height: 1.2;
+  }
+  .section-title em { font-style: italic; color: var(--blue); }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--warm-white); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2.5rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), var(--border));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.8rem;
+    top: 0.3rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 4px rgba(201,168,76,0.2);
+  }
+
+  .timeline-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-role {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-company {
+    font-size: 0.85rem;
+    color: var(--blue);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .timeline-bullets {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .timeline-bullets li {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .timeline-bullets li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-size: 0.7rem;
+    top: 0.15rem;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--navy); }
+  #skills .section-title { color: #fff; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    opacity: 0; transform: translateY(20px);
+  }
+  .skill-card.visible { opacity: 1; transform: translateY(0); }
+  .skill-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .skill-card:hover { border-color: rgba(201,168,76,0.5); background: rgba(255,255,255,0.03); }
+  .skill-card:hover::before { transform: scaleX(1); }
+
+  .skill-cat {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .skill-list {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--cream); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    padding: 2.2rem;
+    position: relative;
+    transition: all 0.3s;
+    opacity: 0; transform: translateY(30px);
+  }
+  .project-card.visible { opacity: 1; transform: translateY(0); }
+  .project-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 12px 40px rgba(15,31,61,0.1);
+    transform: translateY(-4px);
+  }
+
+  .project-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .project-title {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.6rem;
+  }
+  .project-desc {
+    font-size: 0.87rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .project-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    color: var(--blue);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: var(--warm-white); }
+
+  .certs-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .cert-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.4rem 1.6rem;
+    border-left: 3px solid var(--gold);
+    background: var(--cream);
+    opacity: 0; transform: translateX(-15px);
+    transition: all 0.5s;
+  }
+  .cert-item.visible { opacity: 1; transform: translateX(0); }
+
+  .cert-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+  }
+  .cert-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.2rem;
+  }
+  .cert-issuer {
+    font-size: 0.78rem;
+    color: var(--text-light);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+  }
+
+  #contact .section-title { color: #fff; margin-bottom: 1.5rem; }
+
+  .contact-text {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-details {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .contact-row {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.7);
+  }
+  .contact-row .c-icon {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .form-group input,
+  .form-group textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 0.85rem 1rem;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+  .btn-send {
+    align-self: flex-start;
+    padding: 0.9rem 2.5rem;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-send:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080f1e;
+    padding: 2rem 6rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.4);
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0; animation: fadeUp 1s 1.5s forwards;
+  }
+  .scroll-indicator span {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.6); opacity: 0.4; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 8rem 2.5rem 4rem; }
+    .hero-right { padding: 3rem 2.5rem 5rem; }
+    section { padding: 4rem 2.5rem; }
+    #contact { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem 2rem; }
+    .scroll-indicator { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">B. Bhagya Binoy</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Software Engineer · Python Specialist</p>
+    <h1 class="hero-name">B. Bhagya Binoy</h1>
+    <p class="hero-tagline">Python specialist with expertise in Django, Flask, FastAPI, Odoo, LangChain, and cloud platforms — crafting robust backends, AI-powered APIs, and scalable data pipelines across diverse industries.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+      <a href="#experience" class="btn-outline">View Work</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">4+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">40%</div>
+        <div class="stat-label">DB Query Speedup</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">30%</div>
+        <div class="stat-label">Scraping Efficiency↑</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">9.45</div>
+        <div class="stat-label">M.Tech CGPA</div>
+      </div>
+    </div>
+
+    <p class="hero-about">
+      Software Engineer with 4+ years of experience in Python backend development across fintech, e-commerce, healthcare, and AI domains. Proficient in Django, Flask, FastAPI, Odoo, Celery, Docker, and AWS — with hands-on experience integrating LLMs, third-party APIs, and building end-to-end automated workflows that deliver real business value.
+    </p>
+
+    <div class="hero-contacts">
+      <a href="mailto:bhagyabinoy@gmail.com">
+        <span class="icon">✉</span> bhagyabinoy@gmail.com
+      </a>
+      <a href="https://github.com/bhagyabinoy/" target="_blank">
+        <span class="icon">⌥</span> github.com/bhagyabinoy
+      </a>
+      <a href="https://linkedin.com/in/bbhagyabinoy" target="_blank">
+        <span class="icon">in</span> linkedin.com/in/bbhagyabinoy
+      </a>
+      <a href="tel:+919567381188">
+        <span class="icon">☎</span> +91 9567381188
+      </a>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Career Journey</p>
+  <h2 class="section-title">Professional <em>Experience</em></h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Nov 2024 — Present</div>
+      <div class="timeline-role">Software Engineer</div>
+      <div class="timeline-company">Socius Innovative Global Brains</div>
+      <ul class="timeline-bullets">
+        <li>Built the SIGB Test Suite — a CustomTkinter desktop app for automated test execution with continuous server polling, browser driver management, and cross-platform PyInstaller packaging.</li>
+        <li>Developed Costar, an enterprise Flask-based ETL platform integrating Odoo with external systems using Celery, Redis, Prometheus metrics, and Gunicorn multi-worker deployment.</li>
+        <li>Implemented Evo-LIMS on Odoo 19 — a 21 CFR Part 11-ready Laboratory Information Management System with AI lab assistant, electronic signatures, client portal (TOTP/Passkey 2FA), and 8 role-specific dashboards.</li>
+        <li>Delivered custom Odoo 18 payment modules (FCS Payment & AuthVia) integrating NMI gateway and Authvia Text2Pay with full automated order fulfillment pipelines.</li>
+        <li>Built a nonprofit Donation Management System on Odoo 18 with three-tier fund restriction handling, automated journal entries, NMI recurring subscriptions, and AML compliance reporting.</li>
+        <li>Developed an enterprise financial forecasting backend (Ayla) using FastAPI, SAP B1 integration, DCF/NPV/IRR valuation engines, multi-scenario planning, and Ollama LLM integration.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Oct 2022 — Oct 2024</div>
+      <div class="timeline-role">Python Developer</div>
+      <div class="timeline-company">Spericorn Technology Inc.</div>
+      <ul class="timeline-bullets">
+        <li>Reduced database query response times by 40% through targeted optimisation, indexing, and schema restructuring.</li>
+        <li>Built SellerSimple — a Django deal management platform with real-time WebSocket notifications, Celery task queues, Redis, JWT auth, and AWS S3 storage.</li>
+        <li>Developed KickDeals, a multi-source deal scraping platform aggregating Amazon, Slick Deals, Twitter, and clearance deals with automated Celery pipelines.</li>
+        <li>Integrated Amazon Marketplace and Keepa APIs for real-time e-commerce product data analysis — improving data collection efficiency by 30%.</li>
+        <li>Built an LLM-powered REST API backend using LangChain, LangGraph, vLLM, and Llama models with multi-provider authentication (Google OAuth, JWT).</li>
+        <li>Developed an AI Logo Generation Platform using PyTorch/TensorFlow with multi-format export (PNG, SVG, PDF).</li>
+        <li>Integrated OpenAI APIs for NLP features and Synthesia APIs for AI-generated video automation.</li>
+        <li>Built GCP infrastructure inventory tool for automated daily HTML reporting across IAM, Cloud Storage, Compute, and SQL resources.</li>
+        <li>Engineered a Boeing aircraft parts scraper with undetected ChromeDriver, MFA/OTP automation, and batch processing across multi-warehouse inventories.</li>
+        <li>Containerised and deployed scalable web applications using Docker; mentored interns in Python development best practices.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Dec 2020 — Sep 2022</div>
+      <div class="timeline-role">M.Tech Studies & Independent Projects</div>
+      <div class="timeline-company">APJ Abdul Kalam Technological University · Self-directed</div>
+      <ul class="timeline-bullets">
+        <li>Completed M.Tech in Industrial Engineering & Management with a 9.45 CGPA.</li>
+        <li>Pursued advanced certifications in AWS, MongoDB, Selenium, Flask, and AI.</li>
+        <li>Built personal projects applying machine learning, web scraping, and API integration.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Aug 2019 — Nov 2020</div>
+      <div class="timeline-role">Junior Software Developer</div>
+      <div class="timeline-company">Teras Info Solutions</div>
+      <ul class="timeline-bullets">
+        <li>Progressed from trainee to full-stack contributor — HTML, CSS, JavaScript, Python, Django, Flask.</li>
+        <li>Implemented real-time features using Django Channels (WebSockets) and AJAX-driven APIs.</li>
+        <li>Managed databases (MySQL, SQLite, PostgreSQL) and conducted API testing with Postman.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Technical Expertise</p>
+  <h2 class="section-title">Skills &amp; <em>Technologies</em></h2>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-cat">Languages</div>
+      <div class="skill-list">Python · C++ · JavaScript</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">Frameworks</div>
+      <div class="skill-list">Django · Flask · FastAPI · Scrapy · Bootstrap · TensorFlow · PyTorch · Keras</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">Databases</div>
+      <div class="skill-list">PostgreSQL · MySQL · SQLite · MongoDB</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">Cloud & DevOps</div>
+      <div class="skill-list">AWS S3 · Boto3 · QuickSight · Docker</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">APIs & Integrations</div>
+      <div class="skill-list">REST · OpenAI · Synthesia · Amazon Marketplace · Keepa · Stripe · PayPal</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">Task Queues</div>
+      <div class="skill-list">Celery · Celery Beat</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">Web Scraping</div>
+      <div class="skill-list">Selenium · BeautifulSoup · Scraper APIs</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">Dev Tools</div>
+      <div class="skill-list">VS Code · PyCharm · Postman · Swagger UI · Git · GitHub · Bitbucket</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat">Project Methods</div>
+      <div class="skill-list">Agile Scrum · Jira · Trello · Asana</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Selected Work</p>
+  <h2 class="section-title">Featured <em>Projects</em></h2>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-title">SIGB Test Suite — Desktop Test Automation App</div>
+      <div class="project-desc">A modern desktop GUI application built with Python and CustomTkinter for automated test execution and browser automation. Features continuous server polling to fetch and run encoded test scripts, automated Chrome/Firefox driver version management, cross-platform packaging via PyInstaller, and real-time status reporting back to the server.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">CustomTkinter</span><span class="tag">Selenium</span><span class="tag">PyInstaller</span><span class="tag">WebDriver</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-title">Costar — Enterprise ETL & Data Integration Platform</div>
+      <div class="project-desc">A Flask-based enterprise platform for managing ETL pipelines between Odoo and external systems. Built with Celery for async task processing, Redis as message broker, Prometheus for real-time metrics, and Gunicorn for multi-worker production deployment. Features advanced invoice sync with null-safe joins, role-based authentication, and Grafana dashboard integration.</div>
+      <div class="project-tags">
+        <span class="tag">Flask</span><span class="tag">Celery</span><span class="tag">Redis</span><span class="tag">Prometheus</span><span class="tag">SQLAlchemy</span><span class="tag">Docker</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div class="project-title">FCS Payment Module — Odoo 18 Payment Gateway</div>
+      <div class="project-desc">A custom Odoo 18 payment provider addon integrating the NMI payment gateway across e-commerce, POS, and event registration channels. Implemented automated order fulfillment (order confirmation → stock picking → invoice generation), POS terminal registration, secure API communication, and multi-method payment support (card & ACH/E-Cheque).</div>
+      <div class="project-tags">
+        <span class="tag">Odoo 18</span><span class="tag">Python</span><span class="tag">NMI API</span><span class="tag">PostgreSQL</span><span class="tag">QWeb</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">04</div>
+      <div class="project-title">Payment AuthVia — SMS-Based Text2Pay Integration</div>
+      <div class="project-desc">An Odoo 18 payment module integrating Authvia's Text2Pay gateway for SMS-based payments. Built HMAC-SHA256 token authentication, automated customer provisioning with phone validation, payment conversation pipeline with 7-day expiration, and end-to-end order automation — from payment receipt through delivery and invoice posting.</div>
+      <div class="project-tags">
+        <span class="tag">Odoo 18</span><span class="tag">Authvia API</span><span class="tag">HMAC-SHA256</span><span class="tag">Python</span><span class="tag">OWL</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">05</div>
+      <div class="project-title">Ayla Forecasting — Financial Forecasting Backend</div>
+      <div class="project-desc">A FastAPI-based enterprise financial forecasting system with multi-role JWT authentication, SAP Business One ERP integration, and DCF/NPV/IRR valuation engines. Features multi-scenario planning (base/best/worst case), sensitivity analysis, anomaly detection, collaborative comment threads, approval workflows, and automated PDF/Excel report generation.</div>
+      <div class="project-tags">
+        <span class="tag">FastAPI</span><span class="tag">Python</span><span class="tag">SQLAlchemy</span><span class="tag">Pandas</span><span class="tag">Scikit-learn</span><span class="tag">Ollama</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">06</div>
+      <div class="project-title">Donation Management System — Nonprofit Platform</div>
+      <div class="project-desc">A comprehensive Odoo 18 nonprofit donation platform with three-tier fund restriction management (unrestricted, temporarily restricted, permanently restricted), automated journal entries, expense approval workflows, recurring donation subscriptions via NMI, campaign progress analytics, and automated monthly PDF reports with AML compliance for foreign donors.</div>
+      <div class="project-tags">
+        <span class="tag">Odoo 18</span><span class="tag">Python</span><span class="tag">NMI API</span><span class="tag">Accounting</span><span class="tag">PostgreSQL</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">07</div>
+      <div class="project-title">Evo-LIMS — Enterprise Laboratory Information Management System</div>
+      <div class="project-desc">A full-scale, 21 CFR Part 11-ready LIMS built on Odoo 19 for pharmaceutical, environmental, and microbiological laboratories. Features end-to-end sample lifecycle management across 6 sample types, multi-level analytical worksheet workflows (Draft → Approved), AI-powered lab assistant via ChatGPT integration, Certificate of Analysis generation, electronic signature with audit trail, client portal with TOTP/Passkey 2FA, instrument & reagent management, retention scheduling, and 8 real-time role-specific dashboards.</div>
+      <div class="project-tags">
+        <span class="tag">Odoo 19</span><span class="tag">Python</span><span class="tag">OpenAI API</span><span class="tag">PostgreSQL</span><span class="tag">WebAuthn</span><span class="tag">TOTP</span><span class="tag">21 CFR Part 11</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">08</div>
+      <div class="project-title">LLM-Powered REST API Backend</div>
+      <div class="project-desc">A Django-based REST API service integrating Llama and OpenAI large language models via LangChain and LangGraph for graph-based AI workflows. Implemented vLLM for high-performance model serving, multi-provider authentication (Google OAuth, social auth, JWT), async MongoDB queries via Motor, and a modular service-layer architecture separating business logic from API endpoints.</div>
+      <div class="project-tags">
+        <span class="tag">Django</span><span class="tag">LangChain</span><span class="tag">LangGraph</span><span class="tag">vLLM</span><span class="tag">MongoDB</span><span class="tag">Google OAuth</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">09</div>
+      <div class="project-title">SellerSimple — Deal Management & E-Commerce Platform</div>
+      <div class="project-desc">A Django-based web application for automating deal tracking across Amazon, Slick Deals, Outstock, Twitter, and clearance sources. Built real-time WebSocket notifications via Django Channels, Celery async task queues with Redis, JWT authentication, AWS S3 media storage, and web scraping pipelines with BeautifulSoup and Pandas for data analysis.</div>
+      <div class="project-tags">
+        <span class="tag">Django</span><span class="tag">Celery</span><span class="tag">Redis</span><span class="tag">WebSockets</span><span class="tag">AWS S3</span><span class="tag">Selenium</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">10</div>
+      <div class="project-title">Boeing Aircraft Parts Scraper — Stealth Automation Bot</div>
+      <div class="project-desc">An advanced Selenium bot for extracting aircraft parts data from Boeing's commercial fleet portal. Implemented undetected ChromeDriver for anti-bot evasion, MFA/OTP flow automation, session persistence via cookie management, batch processing of 20 parts per request, multi-warehouse inventory extraction, and structured JSON export — complete with alternative part suggestions and pricing.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">Undetected ChromeDriver</span><span class="tag">MFA Automation</span><span class="tag">JSON</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">11</div>
+      <div class="project-title">KickDeals — Multi-Source Deal Scraping Platform</div>
+      <div class="project-desc">A comprehensive deal aggregation platform that automatically scrapes and tracks deals from Amazon, Slick Deals, Outstock, Today Deals, and Twitter. Built automated pipelines with Celery for async batch processing, duplicate detection, promo code extraction, discount percentage tracking, and Django-backed data management with CSV export capabilities across large datasets.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Django</span><span class="tag">Celery</span><span class="tag">Redis</span><span class="tag">Selenium</span><span class="tag">Web Scraping</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">12</div>
+      <div class="project-title">Career & Licensing Data Scraper</div>
+      <div class="project-desc">A Selenium-based web scraper for collecting career and professional licensing data from dynamic, JavaScript-rendered websites. Handles bulk license number inputs, type-based data categorisation, table extraction from paginated results, structured CSV generation, and data cleaning pipelines using Pandas and NumPy — with proxy support for responsible scraping.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">CSV</span><span class="tag">Proxy</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">13</div>
+      <div class="project-title">AI Logo Generation Platform</div>
+      <div class="project-desc">An AI-powered logo generation web application where users specify style, colour scheme, and typography preferences to generate custom logos. Integrated deep learning models (PyTorch/TensorFlow) for text-to-image generation, image post-processing with Pillow, and multi-format export (PNG, SVG, PDF) — served via a Django backend with an HTML frontend for submission and download.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Django</span><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">Pillow</span><span class="tag">AI/ML</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">14</div>
+      <div class="project-title">ACF — Full-Stack Reporting & Visualisation Platform</div>
+      <div class="project-desc">A Django-based full-stack application with Firebase/Firestore as the primary database and AWS Elastic Beanstalk deployment. Built SVG and Highcharts chart engines, multi-format report generation (PDF via pdfkit, Excel via XlsxWriter, Word via docxcompose), batch image processing with HEIF support, Selenium-based data collection, Celery-Beat scheduled tasks, and Aspose Cloud API integration for document processing.</div>
+      <div class="project-tags">
+        <span class="tag">Django</span><span class="tag">Firebase</span><span class="tag">AWS Elastic Beanstalk</span><span class="tag">Highcharts</span><span class="tag">Celery</span><span class="tag">Aspose Cloud</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">15</div>
+      <div class="project-title">GCP Infrastructure Inventory & Reporting Tool</div>
+      <div class="project-desc">An automated Google Cloud Platform governance tool that generates comprehensive daily HTML inventory reports across multiple GCP projects. Covers IAM policies, Cloud Storage buckets with size metrics, Compute Engine instances, Cloud SQL databases, geographic storage distribution, and 7-day request metrics — orchestrated via Shell scripting with Python GCP API integration and CSV export for downstream analysis.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">GCP</span><span class="tag">Google Cloud SDK</span><span class="tag">Cloud Storage</span><span class="tag">Shell Scripting</span><span class="tag">IAM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <p class="section-label">Credentials</p>
+  <h2 class="section-title">Certifications &amp; <em>Education</em></h2>
+
+  <div class="certs-list">
+    <div class="cert-item">
+      <div class="cert-icon">🎓</div>
+      <div>
+        <div class="cert-name">M.Tech — Industrial Engineering & Management</div>
+        <div class="cert-issuer">APJ Abdul Kalam Technological University · 2022 · CGPA 9.45/10</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">🎓</div>
+      <div>
+        <div class="cert-name">B.Tech — Mechanical Engineering</div>
+        <div class="cert-issuer">APJ Abdul Kalam Technological University · 2019 · CGPA 7.54/10</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">☁</div>
+      <div>
+        <div class="cert-name">AWS QuickSight</div>
+        <div class="cert-issuer">LinkedIn Learning · April 2023</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">🤖</div>
+      <div>
+        <div class="cert-name">Artificial Intelligence Internship</div>
+        <div class="cert-issuer">Cokonet Academy · July – September 2022</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">🗄</div>
+      <div>
+        <div class="cert-name">MongoDB Developer & Administrator</div>
+        <div class="cert-issuer">Simplilearn · June 2022</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">🧪</div>
+      <div>
+        <div class="cert-name">Learning Selenium</div>
+        <div class="cert-issuer">LinkedIn Learning · April 2023</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">🐍</div>
+      <div>
+        <div class="cert-name">Flask Python Training</div>
+        <div class="cert-issuer">Great Learning Academy · July 2022</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <p class="section-label">Let's Connect</p>
+    <h2 class="section-title">Get in <em>Touch</em></h2>
+    <p class="contact-text">Open to new opportunities, collaborations, and interesting conversations. Feel free to reach out through any channel.</p>
+    <div class="contact-details">
+      <div class="contact-row"><span class="c-icon">✉</span> bhagyabinoy@gmail.com</div>
+      <div class="contact-row"><span class="c-icon">☎</span> +91 9567381188 · +91 9446170268</div>
+      <div class="contact-row"><span class="c-icon">📍</span> Varkala, Trivandrum, Kerala, India</div>
+      <div class="contact-row"><span class="c-icon">in</span> linkedin.com/in/bbhagyabinoy</div>
+      <div class="contact-row"><span class="c-icon">⌥</span> github.com/bhagyabinoy</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="e.g. Priya Sharma"/>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea rows="5" placeholder="Tell me about your project or opportunity..."></textarea>
+      </div>
+      <button class="btn-send" onclick="handleSend()">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">B. Bhagya Binoy</div>
+  <div class="footer-copy">© 2026 · Software Engineer · Trivandrum, India</div>
+</footer>
+
+<script>
+  // Nav shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Intersection observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(
+    '.timeline-item, .skill-card, .project-card, .cert-item'
+  ).forEach(el => observer.observe(el));
+
+  // Contact form handler
+  function handleSend() {
+    const btn = document.querySelector('.btn-send');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#4caf7d';
+    btn.style.color = '#fff';
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 3000);
+  }
+</script>
+</body>
+</html>
